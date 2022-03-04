@@ -51,6 +51,8 @@ public class Principal extends javax.swing.JFrame {
         tf_posEl = new javax.swing.JTextField();
         butonmod1 = new javax.swing.JButton();
         ventanaCargarArchivo = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         ventanaSimular = new javax.swing.JDialog();
         boxEquipo1 = new javax.swing.JComboBox<>();
         boxEquipo2 = new javax.swing.JComboBox<>();
@@ -217,15 +219,34 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout ventanaCargarArchivoLayout = new javax.swing.GroupLayout(ventanaCargarArchivo.getContentPane());
         ventanaCargarArchivo.getContentPane().setLayout(ventanaCargarArchivoLayout);
         ventanaCargarArchivoLayout.setHorizontalGroup(
             ventanaCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(ventanaCargarArchivoLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         ventanaCargarArchivoLayout.setVerticalGroup(
             ventanaCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(ventanaCargarArchivoLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -368,6 +389,10 @@ public class Principal extends javax.swing.JFrame {
     private void guardarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarEquipoMouseClicked
         // TODO add your handling code here:
          EquiposFutbol team=new EquiposFutbol(NombreEquipo.getText(),0,0,0,0,0,0,0,0);
+         if(verificarNombre(NombreEquipo.getText())){
+             JOptionPane.showMessageDialog(this, "Dos equipos no pueden tener el mismo nombre ");
+           NombreEquipo.setText("");
+         }
          equipos.add(team);
          DefaultComboBoxModel comb=(DefaultComboBoxModel) boxEquipo1.getModel();
           DefaultComboBoxModel comb2=(DefaultComboBoxModel) boxEquipo2.getModel();
@@ -427,6 +452,16 @@ public class Principal extends javax.swing.JFrame {
         ejecutarEliminar();
     }//GEN-LAST:event_EliminarActionPerformed
 
+    
+    private boolean verificarNombre(String nombre){
+        for(EquiposFutbol teamChamp: administrarUser.getChampions()){
+            if(teamChamp.getNombre().equalsIgnoreCase(nombre)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void butonmod1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butonmod1MouseClicked
         // TODO add your handling code here:
          int pos = Integer.parseInt(tf_posEl.getText());
@@ -523,6 +558,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabeltextmod;
     private javax.swing.JLabel jLabeltextmod1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelnombre1;
     private javax.swing.JMenuItem simulacion;
