@@ -1,10 +1,15 @@
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -52,14 +57,16 @@ public class Principal extends javax.swing.JFrame {
         butonmod1 = new javax.swing.JButton();
         ventanaCargarArchivo = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablitaCarga = new javax.swing.JTable();
         ventanaSimular = new javax.swing.JDialog();
         boxEquipo1 = new javax.swing.JComboBox<>();
         boxEquipo2 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        golEquipo1 = new javax.swing.JLabel();
+        golEquipo2 = new javax.swing.JLabel();
+        botonSimular = new javax.swing.JButton();
         ventanaTabla = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         barra = new javax.swing.JMenuBar();
         tabEquipos = new javax.swing.JMenu();
         Crear = new javax.swing.JMenuItem();
@@ -219,44 +226,46 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablitaCarga.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablitaCarga);
 
         javax.swing.GroupLayout ventanaCargarArchivoLayout = new javax.swing.GroupLayout(ventanaCargarArchivo.getContentPane());
         ventanaCargarArchivo.getContentPane().setLayout(ventanaCargarArchivoLayout);
         ventanaCargarArchivoLayout.setHorizontalGroup(
             ventanaCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ventanaCargarArchivoLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         ventanaCargarArchivoLayout.setVerticalGroup(
             ventanaCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ventanaCargarArchivoLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("0");
+        golEquipo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        golEquipo1.setText("0");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("0");
+        golEquipo2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        golEquipo2.setText("0");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Simular");
+        botonSimular.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        botonSimular.setText("Simular");
+        botonSimular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSimularMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout ventanaSimularLayout = new javax.swing.GroupLayout(ventanaSimular.getContentPane());
         ventanaSimular.getContentPane().setLayout(ventanaSimularLayout);
@@ -270,13 +279,13 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(37, 37, 37))
             .addGroup(ventanaSimularLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addComponent(jLabel2)
+                .addComponent(golEquipo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(golEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
             .addGroup(ventanaSimularLayout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addComponent(jButton1)
+                .addComponent(botonSimular)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ventanaSimularLayout.setVerticalGroup(
@@ -288,22 +297,41 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(boxEquipo1))
                 .addGap(18, 18, 18)
                 .addGroup(ventanaSimularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(golEquipo1)
+                    .addComponent(golEquipo2))
                 .addGap(32, 32, 32)
-                .addComponent(jButton1)
+                .addComponent(botonSimular)
                 .addContainerGap(104, Short.MAX_VALUE))
         );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout ventanaTablaLayout = new javax.swing.GroupLayout(ventanaTabla.getContentPane());
         ventanaTabla.getContentPane().setLayout(ventanaTablaLayout);
         ventanaTablaLayout.setHorizontalGroup(
             ventanaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
+            .addGroup(ventanaTablaLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         ventanaTablaLayout.setVerticalGroup(
             ventanaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGroup(ventanaTablaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -343,6 +371,11 @@ public class Principal extends javax.swing.JFrame {
         cargarArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         cargarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CargarArchivo.png"))); // NOI18N
         cargarArchivo.setText("Cargar Archivo");
+        cargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarArchivoActionPerformed(evt);
+            }
+        });
         tabEquipos.add(cargarArchivo);
 
         barra.add(tabEquipos);
@@ -360,6 +393,11 @@ public class Principal extends javax.swing.JFrame {
 
         tablaPosiciones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         tablaPosiciones.setText("Tabla de Posiciones");
+        tablaPosiciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tablaPosicionesActionPerformed(evt);
+            }
+        });
         tabPartidos.add(tablaPosiciones);
 
         barra.add(tabPartidos);
@@ -474,7 +512,131 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
     }//GEN-LAST:event_butonmod1MouseClicked
+
+    private void cargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArchivoActionPerformed
+        // TODO add your handling code here:
+        ejecutarCargarArchivo();
+        File texto=null;
+        FileReader fr=null;
+        BufferedReader br=null;
+        
+        try{
+            texto=new File ("./Text.txt");
+            fr=new FileReader(texto);
+            br=new BufferedReader(fr);
+            String Linea;
+            DefaultTableModel mob = new DefaultTableModel();
+            mob.addColumn("Dato.txt");
+            while((Linea=br.readLine())!=null){
+           mob.addRow(new String[]{Linea});
+           
+            }
+          tablitaCarga.setModel(mob);
+        }
+        catch(IOException e){
+            
+        }
+       
     
+    }//GEN-LAST:event_cargarArchivoActionPerformed
+
+    private void botonSimularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSimularMouseClicked
+        // TODO add your handling code here:
+        if(boxEquipo1.getSelectedIndex()>=0 && boxEquipo2.getSelectedIndex()>=0){
+            if(boxEquipo1.getSelectedItem()!=boxEquipo2.getSelectedItem()){
+                int goles1,goles2;
+                goles1=num.nextInt(10);
+                goles2=num.nextInt(10);
+                golEquipo1.setText(String.valueOf(goles1));
+                golEquipo2.setText(String.valueOf(goles2));
+                
+                EquiposFutbol team1= administrarUser.getChampions().get(boxEquipo1.getSelectedIndex());
+                EquiposFutbol team2= administrarUser.getChampions().get(boxEquipo2.getSelectedIndex());
+                
+                team1.setPartidosJugados(team1.getPartidosJugados()+1);
+                team2.setPartidosJugados(team2.getPartidosJugados()+1);
+                
+                if(goles1>goles2){
+                    team1.setPartidosGanados(team1.getPartidosGanados()+1);
+                    team2.setPartidosGanados(team2.getPartidosPerdidos()+1);
+                    team1.setPuntos(team1.getPuntos()+3);
+                    JOptionPane.showMessageDialog(null,"El ganador es "+ team1.getNombre());
+                }
+                else if(goles1<goles2){
+                    team1.setPartidosGanados(team1.getPartidosGanados()+1);
+                    team2.setPartidosGanados(team2.getPartidosPerdidos()+1);
+                    team1.setPuntos(team1.getPuntos()+3);
+                    JOptionPane.showMessageDialog(null,"El ganador es "+ team1.getNombre());
+                }
+                else if(goles1==goles2){
+                    team1.setPartidosEmpatados(team1.getPartidosEmpatados()+1);
+                    team2.setPartidosEmpatados(team2.getPartidosEmpatados()+1);   
+                    team1.setPuntos(team1.getPuntos()+1);
+                    team2.setPuntos(team1.getPuntos()+1);
+                    JOptionPane.showMessageDialog(null,team1.getNombre()+ " y " + team2.getNombre()+ " Empataron ");
+                }
+                
+                team1.setGolesFavor(team1.getGolesFavor() +goles1);
+                team1.setGolesContra(team1.getGolesContra()+goles2);
+                team1.setGolesDiferencia(team1.getGolesDiferencia()+(team1.getGolesFavor()-team1.getGolesContra()));
+                
+                 team2.setGolesFavor(team2.getGolesFavor() +goles1);
+                team2.setGolesContra(team2.getGolesContra()+goles2);
+                team2.setGolesDiferencia(team2.getGolesDiferencia()+(team2.getGolesFavor()-team2.getGolesContra()));
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Seleccione los equipos porfavor");
+            }
+        }
+        
+    }//GEN-LAST:event_botonSimularMouseClicked
+
+    private void tablaPosicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaPosicionesActionPerformed
+        // TODO add your handling code here:
+        ejecutarTablaPosiciones();
+        ArreglarTabla();
+        
+    }//GEN-LAST:event_tablaPosicionesActionPerformed
+    
+    
+    private void ArreglarTabla(){
+        EquiposFutbol arreglo[]=new EquiposFutbol[equipos.size()];
+        for(int i=0;i<equipos.size();i++){
+            arreglo[i]=equipos.get(i);
+        }
+        for(int i=0;i<arreglo.length-1;i++){
+            int ind=i;
+            for(int j=0;j<arreglo.length;j++){
+            int pot=j;
+            if(arreglo[ind].getPuntos()<arreglo[pot].getPuntos()){
+                ind=j;
+               }
+            }
+            EquiposFutbol menor=arreglo[ind];
+            arreglo[ind]=arreglo[i];
+            arreglo[i]=menor;
+        }
+        
+        equipos.clear();
+        for(int i=0;i<arreglo.length;i++){
+            equipos.add(arreglo[arreglo.length-(i+1)]);
+        }
+        
+    }
+    private void ejecutarTablaPosiciones(){
+        ventanaTabla.setModal(true);
+        ventanaTabla.pack();
+        ventanaTabla.setLocationRelativeTo(this);
+        ventanaTabla.setVisible(true);
+    }
+    
+    private void ejecutarCargarArchivo(){
+        ventanaCargarArchivo.setModal(true);
+        ventanaCargarArchivo.pack();
+        ventanaCargarArchivo.setLocationRelativeTo(this);
+        ventanaCargarArchivo.setVisible(true);
+    }
     private void ejecutarEliminar(){
         ventanaEliminar.setModal(true);
         ventanaEliminar.pack();
@@ -544,21 +706,22 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField NombreEquipo;
     private javax.swing.JTextField NombreEquipomod;
     private javax.swing.JMenuBar barra;
+    private javax.swing.JButton botonSimular;
     private javax.swing.JComboBox<String> boxEquipo1;
     private javax.swing.JComboBox<String> boxEquipo2;
     private javax.swing.JButton butonmod;
     private javax.swing.JButton butonmod1;
     private javax.swing.JMenuItem cargarArchivo;
+    private javax.swing.JLabel golEquipo1;
+    private javax.swing.JLabel golEquipo2;
     private javax.swing.JButton guardarEquipo;
     private javax.swing.JButton guardarEquipo1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabeltextmod;
     private javax.swing.JLabel jLabeltextmod1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelnombre1;
@@ -566,6 +729,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu tabEquipos;
     private javax.swing.JMenu tabPartidos;
     private javax.swing.JMenuItem tablaPosiciones;
+    private javax.swing.JTable tablitaCarga;
     private javax.swing.JTextField tf_pos;
     private javax.swing.JTextField tf_posEl;
     private javax.swing.JDialog ventanaCargarArchivo;
@@ -576,5 +740,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDialog ventanaTabla;
     // End of variables declaration//GEN-END:variables
 private AdministrarUserText administrarUser=new AdministrarUserText("./Text.txt");
-        
+private Random num=new Random();
 }
