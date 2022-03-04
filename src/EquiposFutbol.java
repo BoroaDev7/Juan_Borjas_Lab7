@@ -19,6 +19,9 @@ public class EquiposFutbol {
         this.golesDiferencia = golesDiferencia;
         this.puntos = puntos;
     }
+     public EquiposFutbol(String nombre) {
+        this.nombre = nombre; 
+    }
 
     public String getNombre() {
         return nombre;

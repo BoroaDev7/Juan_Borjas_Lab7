@@ -50,6 +50,7 @@ private ArrayList<EquiposFutbol> Champions = new ArrayList();
             bw = new BufferedWriter(fw);
             for (EquiposFutbol equipo : Champions) {
                 bw.write(equipo.getNombre() + " , ");
+                bw.write(equipo.getPartidosJugados()+ " , ");
                 bw.write(equipo.getPartidosGanados()+ " , ");
                 bw.write((equipo.getPartidosEmpatados() + " , "));
                   bw.write(equipo.getPartidosPerdidos()+ " , ");

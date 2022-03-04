@@ -44,7 +44,7 @@ public class Principal extends javax.swing.JFrame {
         butonmod = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         labelnombre1 = new javax.swing.JLabel();
-        NombreEquipo1 = new javax.swing.JTextField();
+        NombreEquipomod = new javax.swing.JTextField();
         guardarEquipo1 = new javax.swing.JButton();
         vetanaEliminar = new javax.swing.JDialog();
         ventanaCargarArchivo = new javax.swing.JDialog();
@@ -152,7 +152,7 @@ public class Principal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(labelnombre1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NombreEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(NombreEquipomod, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ventanaModificarLayout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(guardarEquipo1)))
@@ -172,7 +172,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelnombre1)
-                    .addComponent(NombreEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NombreEquipomod, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(guardarEquipo1)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -297,6 +297,11 @@ public class Principal extends javax.swing.JFrame {
 
         simulacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         simulacion.setText("Simular");
+        simulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulacionActionPerformed(evt);
+            }
+        });
         tabPartidos.add(simulacion);
 
         tablaPosiciones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -334,8 +339,10 @@ public class Principal extends javax.swing.JFrame {
          DefaultComboBoxModel comb=(DefaultComboBoxModel) boxEquipo1.getModel();
           DefaultComboBoxModel comb2=(DefaultComboBoxModel) boxEquipo2.getModel();
           
-         comb.addElement(equipos);
-         comb2.addElement(equipos);
+          for (EquiposFutbol teamChamp : equipos) {
+            comb.addElement(teamChamp.getNombre());
+         comb2.addElement(teamChamp.getNombre());
+        }
          boxEquipo1.setModel(comb);
          boxEquipo2.setModel(comb2);
          NombreEquipo.setText("");
@@ -344,8 +351,9 @@ public class Principal extends javax.swing.JFrame {
              administrarUser.cargarText();
          administrarUser.setChampions(equipos);
             administrarUser.escribirText();
+            JOptionPane.showMessageDialog(this, "Equipo agregado Exitosamente");
         } catch (IOException ex) {
-           JOptionPane.showMessageDialog(this, "Equipo agregado Exitosamente");
+           JOptionPane.showMessageDialog(this, "Nose puede agregar el Equipo");
         }
         
          
@@ -362,8 +370,23 @@ public class Principal extends javax.swing.JFrame {
 
     private void guardarEquipo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarEquipo1MouseClicked
         // TODO add your handling code here:
+        int pos = Integer.parseInt(tf_pos.getText());
+        equipos.get(pos).setNombre(NombreEquipomod.getText());
+        
     }//GEN-LAST:event_guardarEquipo1MouseClicked
 
+    private void simulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulacionActionPerformed
+        // TODO add your handling code here:
+        ejecutarSimular();
+    }//GEN-LAST:event_simulacionActionPerformed
+
+    
+    private void ejecutarSimular(){
+        ventanaSimular.setModal(true);
+        ventanaSimular.pack();
+        ventanaSimular.setLocationRelativeTo(this);
+        ventanaSimular.setVisible(true);
+    }
    private void ejecutarCrear(){
         ventanaCrear.setModal(true);
         ventanaCrear.pack();
@@ -413,7 +436,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenuItem Modificar;
     private javax.swing.JTextField NombreEquipo;
-    private javax.swing.JTextField NombreEquipo1;
+    private javax.swing.JTextField NombreEquipomod;
     private javax.swing.JMenuBar barra;
     private javax.swing.JComboBox<String> boxEquipo1;
     private javax.swing.JComboBox<String> boxEquipo2;
