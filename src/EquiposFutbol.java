@@ -1,7 +1,7 @@
 
 public class EquiposFutbol {
     private String nombre;
-    private int partidosGanados,partidosEmpatados,partidosPerdidos;
+    private int partidosJugados,partidosGanados,partidosEmpatados,partidosPerdidos;
     private int golesFavor,golesContra,golesDiferencia;
     private int puntos;
 
@@ -26,6 +26,15 @@ public class EquiposFutbol {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public int getPartidosJugados() {
+        return partidosJugados;
+    }
+
+    public void setPartidosJugados(int partidosJugados) {
+        this.partidosJugados = partidosJugados;
+    }
+
 
     public int getPartidosGanados() {
         return partidosGanados;
