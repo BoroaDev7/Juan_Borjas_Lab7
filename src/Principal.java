@@ -361,6 +361,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         // TODO add your handling code here:
+        ejecutarModificar();
+        
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void butonmodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butonmodMouseClicked
@@ -372,6 +374,14 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int pos = Integer.parseInt(tf_pos.getText());
         equipos.get(pos).setNombre(NombreEquipomod.getText());
+        try {
+             administrarUser.cargarText();
+         administrarUser.setChampions(equipos);
+            administrarUser.escribirText();
+            JOptionPane.showMessageDialog(this, "Equipo modificado Exitosamente");
+        } catch (IOException ex) {
+           JOptionPane.showMessageDialog(this, "Nose puede agregar el Equipo");
+        }
         
     }//GEN-LAST:event_guardarEquipo1MouseClicked
 
@@ -380,7 +390,12 @@ public class Principal extends javax.swing.JFrame {
         ejecutarSimular();
     }//GEN-LAST:event_simulacionActionPerformed
 
-    
+    private void ejecutarModificar(){
+        ventanaModificar.setModal(true);
+        ventanaModificar.pack();
+        ventanaModificar.setLocationRelativeTo(this);
+        ventanaModificar.setVisible(true);
+    }
     private void ejecutarSimular(){
         ventanaSimular.setModal(true);
         ventanaSimular.pack();
