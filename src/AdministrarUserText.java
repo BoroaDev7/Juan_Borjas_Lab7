@@ -82,6 +82,7 @@ private ArrayList<EquiposFutbol> Champions = new ArrayList();
                                     leer.nextInt(),
                                     leer.nextInt(),
                                     leer.nextInt(),
+                                    leer.nextInt(),
                                     leer.nextInt()
                                  )
                     );

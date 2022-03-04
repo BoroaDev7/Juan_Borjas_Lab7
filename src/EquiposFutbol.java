@@ -8,8 +8,9 @@ public class EquiposFutbol {
     public EquiposFutbol() {
     }
 
-    public EquiposFutbol(String nombre, int partidosGanados, int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesContra, int golesDiferencia, int puntos) {
+    public EquiposFutbol(String nombre,int partidosJugados, int partidosGanados, int partidosEmpatados, int partidosPerdidos, int golesFavor, int golesContra, int golesDiferencia, int puntos) {
         this.nombre = nombre;
+        this.partidosJugados=partidosJugados;
         this.partidosGanados = partidosGanados;
         this.partidosEmpatados = partidosEmpatados;
         this.partidosPerdidos = partidosPerdidos;
