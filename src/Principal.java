@@ -46,7 +46,10 @@ public class Principal extends javax.swing.JFrame {
         labelnombre1 = new javax.swing.JLabel();
         NombreEquipomod = new javax.swing.JTextField();
         guardarEquipo1 = new javax.swing.JButton();
-        vetanaEliminar = new javax.swing.JDialog();
+        ventanaEliminar = new javax.swing.JDialog();
+        jLabeltextmod1 = new javax.swing.JLabel();
+        tf_posEl = new javax.swing.JTextField();
+        butonmod1 = new javax.swing.JButton();
         ventanaCargarArchivo = new javax.swing.JDialog();
         ventanaSimular = new javax.swing.JDialog();
         boxEquipo1 = new javax.swing.JComboBox<>();
@@ -178,15 +181,40 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout vetanaEliminarLayout = new javax.swing.GroupLayout(vetanaEliminar.getContentPane());
-        vetanaEliminar.getContentPane().setLayout(vetanaEliminarLayout);
-        vetanaEliminarLayout.setHorizontalGroup(
-            vetanaEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jLabeltextmod1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabeltextmod1.setText("Ingrese la posicion del equipo a Eliminar");
+
+        butonmod1.setText("Eliminar");
+        butonmod1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                butonmod1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ventanaEliminarLayout = new javax.swing.GroupLayout(ventanaEliminar.getContentPane());
+        ventanaEliminar.getContentPane().setLayout(ventanaEliminarLayout);
+        ventanaEliminarLayout.setHorizontalGroup(
+            ventanaEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaEliminarLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(tf_posEl, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(ventanaEliminarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabeltextmod1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(ventanaEliminarLayout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(butonmod1))
         );
-        vetanaEliminarLayout.setVerticalGroup(
-            vetanaEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        ventanaEliminarLayout.setVerticalGroup(
+            ventanaEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaEliminarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabeltextmod1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_posEl, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(butonmod1)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ventanaCargarArchivoLayout = new javax.swing.GroupLayout(ventanaCargarArchivo.getContentPane());
@@ -284,6 +312,11 @@ public class Principal extends javax.swing.JFrame {
         Eliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Eliminar.png"))); // NOI18N
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         tabEquipos.add(Eliminar);
 
         cargarArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -348,7 +381,7 @@ public class Principal extends javax.swing.JFrame {
          NombreEquipo.setText("");
         
         try {
-             administrarUser.cargarText();
+         
          administrarUser.setChampions(equipos);
             administrarUser.escribirText();
             JOptionPane.showMessageDialog(this, "Equipo agregado Exitosamente");
@@ -374,10 +407,9 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int pos = Integer.parseInt(tf_pos.getText());
         equipos.get(pos).setNombre(NombreEquipomod.getText());
-        try {
-             administrarUser.cargarText();
+        try {             
          administrarUser.setChampions(equipos);
-            administrarUser.escribirText();
+         administrarUser.escribirText();
             JOptionPane.showMessageDialog(this, "Equipo modificado Exitosamente");
         } catch (IOException ex) {
            JOptionPane.showMessageDialog(this, "Nose puede agregar el Equipo");
@@ -390,6 +422,30 @@ public class Principal extends javax.swing.JFrame {
         ejecutarSimular();
     }//GEN-LAST:event_simulacionActionPerformed
 
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+        ejecutarEliminar();
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void butonmod1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butonmod1MouseClicked
+        // TODO add your handling code here:
+         int pos = Integer.parseInt(tf_posEl.getText());
+       try {
+            administrarUser.cargarText();
+            administrarUser.getChampions().remove(pos);
+            administrarUser.escribirText();
+            JOptionPane.showMessageDialog(null, "Borrado Exitosamente");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo borrar");
+        }
+    }//GEN-LAST:event_butonmod1MouseClicked
+    
+    private void ejecutarEliminar(){
+        ventanaEliminar.setModal(true);
+        ventanaEliminar.pack();
+        ventanaEliminar.setLocationRelativeTo(this);
+        ventanaEliminar.setVisible(true);
+    }
     private void ejecutarModificar(){
         ventanaModificar.setModal(true);
         ventanaModificar.pack();
@@ -456,6 +512,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> boxEquipo1;
     private javax.swing.JComboBox<String> boxEquipo2;
     private javax.swing.JButton butonmod;
+    private javax.swing.JButton butonmod1;
     private javax.swing.JMenuItem cargarArchivo;
     private javax.swing.JButton guardarEquipo;
     private javax.swing.JButton guardarEquipo1;
@@ -465,6 +522,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabeltextmod;
+    private javax.swing.JLabel jLabeltextmod1;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelnombre1;
     private javax.swing.JMenuItem simulacion;
@@ -472,12 +530,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu tabPartidos;
     private javax.swing.JMenuItem tablaPosiciones;
     private javax.swing.JTextField tf_pos;
+    private javax.swing.JTextField tf_posEl;
     private javax.swing.JDialog ventanaCargarArchivo;
     private javax.swing.JDialog ventanaCrear;
+    private javax.swing.JDialog ventanaEliminar;
     private javax.swing.JDialog ventanaModificar;
     private javax.swing.JDialog ventanaSimular;
     private javax.swing.JDialog ventanaTabla;
-    private javax.swing.JDialog vetanaEliminar;
     // End of variables declaration//GEN-END:variables
 private AdministrarUserText administrarUser=new AdministrarUserText("./Text.txt");
         

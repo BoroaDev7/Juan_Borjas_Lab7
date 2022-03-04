@@ -46,7 +46,7 @@ private ArrayList<EquiposFutbol> Champions = new ArrayList();
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(text, false);
+            fw = new FileWriter(text, true);
             bw = new BufferedWriter(fw);
             for (EquiposFutbol equipo : Champions) {
                 bw.write(equipo.getNombre() + " , ");
@@ -57,7 +57,7 @@ private ArrayList<EquiposFutbol> Champions = new ArrayList();
                     bw.write(equipo.getGolesFavor() + " , ");
                      bw.write(equipo.getGolesContra() + " , ");
                       bw.write(equipo.getGolesDiferencia() + " , ");
-                       bw.write(equipo.getPuntos() + " , ");
+                       bw.write(equipo.getPuntos());
                         bw.newLine();
                        
             }
