@@ -1,5 +1,8 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -36,6 +39,13 @@ public class Principal extends javax.swing.JFrame {
         NombreEquipo = new javax.swing.JTextField();
         guardarEquipo = new javax.swing.JButton();
         ventanaModificar = new javax.swing.JDialog();
+        jLabeltextmod = new javax.swing.JLabel();
+        tf_pos = new javax.swing.JTextField();
+        butonmod = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        labelnombre1 = new javax.swing.JLabel();
+        NombreEquipo1 = new javax.swing.JTextField();
+        guardarEquipo1 = new javax.swing.JButton();
         vetanaEliminar = new javax.swing.JDialog();
         ventanaCargarArchivo = new javax.swing.JDialog();
         ventanaSimular = new javax.swing.JDialog();
@@ -99,15 +109,73 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        jLabeltextmod.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabeltextmod.setText("Ingrese la posicion del equipo a modificar");
+
+        butonmod.setText("Ingresar");
+        butonmod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                butonmodMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Ingrese los nuevos valores");
+
+        labelnombre1.setText("Nombre del Equipo");
+
+        guardarEquipo1.setText("Guardar");
+        guardarEquipo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                guardarEquipo1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout ventanaModificarLayout = new javax.swing.GroupLayout(ventanaModificar.getContentPane());
         ventanaModificar.getContentPane().setLayout(ventanaModificarLayout);
         ventanaModificarLayout.setHorizontalGroup(
             ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(ventanaModificarLayout.createSequentialGroup()
+                .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventanaModificarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabeltextmod, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ventanaModificarLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(butonmod)
+                                        .addComponent(tf_pos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(ventanaModificarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelnombre1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(NombreEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ventanaModificarLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(guardarEquipo1)))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         ventanaModificarLayout.setVerticalGroup(
             ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(ventanaModificarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabeltextmod, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_pos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(butonmod)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel5)
+                .addGap(16, 16, 16)
+                .addGroup(ventanaModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelnombre1)
+                    .addComponent(NombreEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(guardarEquipo1)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout vetanaEliminarLayout = new javax.swing.GroupLayout(vetanaEliminar.getContentPane());
@@ -182,11 +250,11 @@ public class Principal extends javax.swing.JFrame {
         ventanaTabla.getContentPane().setLayout(ventanaTablaLayout);
         ventanaTablaLayout.setHorizontalGroup(
             ventanaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         ventanaTablaLayout.setVerticalGroup(
             ventanaTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 504, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -271,14 +339,30 @@ public class Principal extends javax.swing.JFrame {
          boxEquipo1.setModel(comb);
          boxEquipo2.setModel(comb2);
          NombreEquipo.setText("");
-         
-        JOptionPane.showMessageDialog(this, "Equipo agregado Exitosamente");
+        
+        try {
+             administrarUser.cargarText();
+         administrarUser.setChampions(equipos);
+            administrarUser.escribirText();
+        } catch (IOException ex) {
+           JOptionPane.showMessageDialog(this, "Equipo agregado Exitosamente");
+        }
+        
          
     }//GEN-LAST:event_guardarEquipoMouseClicked
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModificarActionPerformed
+
+    private void butonmodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butonmodMouseClicked
+        // TODO add your handling code here:
+        int pos = Integer.parseInt(tf_pos.getText());
+    }//GEN-LAST:event_butonmodMouseClicked
+
+    private void guardarEquipo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarEquipo1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarEquipo1MouseClicked
 
    private void ejecutarCrear(){
         ventanaCrear.setModal(true);
@@ -323,25 +407,33 @@ public class Principal extends javax.swing.JFrame {
     }
 
     ArrayList<EquiposFutbol> equipos=new ArrayList();
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Crear;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenuItem Modificar;
     private javax.swing.JTextField NombreEquipo;
+    private javax.swing.JTextField NombreEquipo1;
     private javax.swing.JMenuBar barra;
     private javax.swing.JComboBox<String> boxEquipo1;
     private javax.swing.JComboBox<String> boxEquipo2;
+    private javax.swing.JButton butonmod;
     private javax.swing.JMenuItem cargarArchivo;
     private javax.swing.JButton guardarEquipo;
+    private javax.swing.JButton guardarEquipo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabeltextmod;
     private javax.swing.JLabel labelnombre;
+    private javax.swing.JLabel labelnombre1;
     private javax.swing.JMenuItem simulacion;
     private javax.swing.JMenu tabEquipos;
     private javax.swing.JMenu tabPartidos;
     private javax.swing.JMenuItem tablaPosiciones;
+    private javax.swing.JTextField tf_pos;
     private javax.swing.JDialog ventanaCargarArchivo;
     private javax.swing.JDialog ventanaCrear;
     private javax.swing.JDialog ventanaModificar;
@@ -349,4 +441,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDialog ventanaTabla;
     private javax.swing.JDialog vetanaEliminar;
     // End of variables declaration//GEN-END:variables
+private AdministrarUserText administrarUser=new AdministrarUserText("./Text.txt");
+        
 }

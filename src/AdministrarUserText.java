@@ -57,6 +57,7 @@ private ArrayList<EquiposFutbol> Champions = new ArrayList();
                      bw.write(equipo.getGolesContra() + " , ");
                       bw.write(equipo.getGolesDiferencia() + " , ");
                        bw.write(equipo.getPuntos() + " , ");
+                        bw.newLine();
                        
             }
             bw.flush();
