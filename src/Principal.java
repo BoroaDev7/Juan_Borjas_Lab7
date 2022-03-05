@@ -547,11 +547,12 @@ public class Principal extends javax.swing.JFrame {
                 int goles1,goles2;
                 goles1=num.nextInt(10);
                 goles2=num.nextInt(10);
-                EquiposFutbol team1= administrarUser.getChampions().get(boxEquipo1.getSelectedIndex());
-                EquiposFutbol team2= administrarUser.getChampions().get(boxEquipo2.getSelectedIndex());
-                
+
                 golEquipo1.setText(String.valueOf(goles1));
                 golEquipo2.setText(String.valueOf(goles2));
+                
+                EquiposFutbol team1= administrarUser.getChampions().get(boxEquipo1.getSelectedIndex());
+                EquiposFutbol team2= administrarUser.getChampions().get(boxEquipo2.getSelectedIndex());
                        
                 
                 team1.setPartidosJugados(team1.getPartidosJugados()+1);
@@ -561,20 +562,20 @@ public class Principal extends javax.swing.JFrame {
                     team1.setPartidosGanados(team1.getPartidosGanados()+1);
                     team2.setPartidosGanados(team2.getPartidosPerdidos()+1);
                     team1.setPuntos(team1.getPuntos()+3);
-                    JOptionPane.showMessageDialog(null,"El ganador es "+ team1.getNombre());
+                
                 }
                 else if(goles1<goles2){
                     team1.setPartidosGanados(team1.getPartidosGanados()+1);
                     team2.setPartidosGanados(team2.getPartidosPerdidos()+1);
                     team1.setPuntos(team1.getPuntos()+3);
-                    JOptionPane.showMessageDialog(null,"El ganador es "+ team1.getNombre());
+               
                 }
-                else if(goles1==goles2){
+                else {
                     team1.setPartidosEmpatados(team1.getPartidosEmpatados()+1);
                     team2.setPartidosEmpatados(team2.getPartidosEmpatados()+1);   
                     team1.setPuntos(team1.getPuntos()+1);
                     team2.setPuntos(team1.getPuntos()+1);
-                    JOptionPane.showMessageDialog(null,team1.getNombre()+ " y " + team2.getNombre()+ " Empataron ");
+                
                 }
                 
                 team1.setGolesFavor(team1.getGolesFavor() +goles1);
@@ -585,6 +586,12 @@ public class Principal extends javax.swing.JFrame {
                 team2.setGolesContra(team2.getGolesContra()+goles2);
                 team2.setGolesDiferencia(team2.getGolesDiferencia()+(team2.getGolesFavor()-team2.getGolesContra()));
                 
+                try {             
+         administrarUser.escribirText();
+ 
+        } catch (IOException ex) {
+           JOptionPane.showMessageDialog(this, "Nose pudo simular");
+        }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Seleccione los equipos porfavor");
