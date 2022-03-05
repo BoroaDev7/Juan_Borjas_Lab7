@@ -547,11 +547,12 @@ public class Principal extends javax.swing.JFrame {
                 int goles1,goles2;
                 goles1=num.nextInt(10);
                 goles2=num.nextInt(10);
-                golEquipo1.setText(String.valueOf(goles1));
-                golEquipo2.setText(String.valueOf(goles2));
-                
                 EquiposFutbol team1= administrarUser.getChampions().get(boxEquipo1.getSelectedIndex());
                 EquiposFutbol team2= administrarUser.getChampions().get(boxEquipo2.getSelectedIndex());
+                
+                golEquipo1.setText(String.valueOf(goles1));
+                golEquipo2.setText(String.valueOf(goles2));
+                       
                 
                 team1.setPartidosJugados(team1.getPartidosJugados()+1);
                 team2.setPartidosJugados(team2.getPartidosJugados()+1);
@@ -596,6 +597,27 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ejecutarTablaPosiciones();
         ArreglarTabla();
+        ejecutarCargarArchivo();
+        File texto=null;
+        FileReader fr=null;
+        BufferedReader br=null;
+        
+        try{
+            texto=new File ("./Text.txt");
+            fr=new FileReader(texto);
+            br=new BufferedReader(fr);
+            String Linea;
+            DefaultTableModel mob = new DefaultTableModel();
+            mob.addColumn("Dato.txt");
+            while((Linea=br.readLine())!=null){
+           mob.addRow(new String[]{Linea});
+           
+            }
+          tablitaCarga.setModel(mob);
+        }
+        catch(IOException e){
+            
+        }
         
     }//GEN-LAST:event_tablaPosicionesActionPerformed
     
