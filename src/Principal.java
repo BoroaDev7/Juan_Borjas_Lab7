@@ -597,7 +597,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ejecutarTablaPosiciones();
         ArreglarTabla();
-        ejecutarCargarArchivo();
         File texto=null;
         FileReader fr=null;
         BufferedReader br=null;
